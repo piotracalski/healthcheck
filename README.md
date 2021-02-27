@@ -13,7 +13,7 @@ For more info, please visit: https://cloud.google.com/docs/authentication/produc
 ## Executing the script
 ```
 pip install -r requirements.txt
-python .\main.py '*{ORIGIN_URL}*'
+python .\main.py '{ORIGIN_URL}'
 ```
 
 ## Output
