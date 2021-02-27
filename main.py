@@ -1,7 +1,9 @@
-from google.cloud import bigquery
 from google.oauth2 import service_account
 from dotenv import load_dotenv
 import os
+import sys
+
+from modules import crux
 
 load_dotenv()
 
@@ -12,40 +14,42 @@ GSA_CREDENTIALS = service_account.Credentials.from_service_account_file(
     scopes=["https://www.googleapis.com/auth/cloud-platform"]
 )
 
-ORIGIN_URL = '%ford.co.uk'
+# ORIGIN_URL = '%ford.co.uk'
+ORIGIN_URL = sys.argv[1]
 
-class WebsiteHealthcheckWorker:
+class SampleCollector:
   def __init__(self):
-    self.harvest = []
-    
-  def query_device_distribution(self):
-    client = bigquery.Client(credentials=GSA_CREDENTIALS, project=GSA_CREDENTIALS.project_id)
-    query_job = client.query(
-      f"""
-      SELECT
-      form_factor.name AS Device,
-      COUNT(form_factor.name) AS CountOf,
-      ROUND(COUNT(form_factor.name) / (SELECT
-          COUNT(origin)
-          FROM `chrome-ux-report.all.202101`
-          WHERE origin LIKE '{ORIGIN_URL}'), 2) * 100 AS Percentage
+    self.collection = dict()
 
-      FROM 
-      `chrome-ux-report.all.202101`
+  def accept(self, visitor):
+    visitor.visit(self)
+    # self.collection[visitor.sample_name()] = visitor.visit(self)
 
-      WHERE origin LIKE '{ORIGIN_URL}'
-
-      GROUP BY form_factor.name
-      """
-    )
-
-    results = query_job.result()
+  def __repr__(self):
+    return self.collection
 
 
-    for row in results:
-      print(f'Device: {row[0]} | Count: {row[1]} | Percentage: {row[2]}')
+# class Sample():
+#   def sample_name(self):
+#     return self.__class__.__name__
+
+
+# class DeviceDistribution(Sample):
+class DeviceDistribution():
+  def visit(self, samples):
+    return crux.query_device_distribution(samples, GSA_CREDENTIALS, ORIGIN_URL)
+
 
 
 if __name__ == "__main__":
-  worker = WebsiteHealthcheckWorker()
-  worker.query_device_distribution()
+
+  collector = SampleCollector()
+
+  contexts = [
+    DeviceDistribution()
+  ]
+
+  for context in contexts:
+    collector.accept(context)
+
+  print(collector.collection)
