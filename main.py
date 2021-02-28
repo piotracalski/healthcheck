@@ -4,14 +4,15 @@ import os
 import sys
 
 from modules import crux
+from modules import psi
 
 load_dotenv()
 
 GSA_CREDENTIALS_PATH = os.getenv('GSA_CREDENTIALS_PATH', './credentials.json')
 
 GSA_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    GSA_CREDENTIALS_PATH,
-    scopes=["https://www.googleapis.com/auth/cloud-platform"]
+  GSA_CREDENTIALS_PATH,
+  scopes=["https://www.googleapis.com/auth/cloud-platform"]
 )
 
 # ORIGIN_URL = '%ford.co.uk'
@@ -40,13 +41,18 @@ class DeviceDistribution():
     return crux.query_device_distribution(samples, GSA_CREDENTIALS, ORIGIN_URL)
 
 
+class LighthouseScores():
+  def visit(self, samples):
+    return psi.get_lighthouse_scores(samples)
+
 
 if __name__ == "__main__":
 
   collector = SampleCollector()
 
   contexts = [
-    DeviceDistribution()
+    DeviceDistribution(),
+    LighthouseScores()
   ]
 
   for context in contexts:
