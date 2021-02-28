@@ -1,7 +1,7 @@
 from google.cloud import bigquery
 
 
-def query_device_distribution(collector, GSA_CREDENTIALS, ORIGIN_URL):
+def query_device_distribution(collector, ORIGIN_URL, GSA_CREDENTIALS):
 
   print('COLLECT: device distribution')
   client = bigquery.Client(credentials=GSA_CREDENTIALS, project=GSA_CREDENTIALS.project_id)
