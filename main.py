@@ -26,8 +26,8 @@ GSA_CREDENTIALS = service_account.Credentials.from_service_account_file(
 
 PSI_API_KEY = get_data_from_json(PSI_API_KEY_PATH)['API_KEY']
 
-# ORIGIN_URL = '%ford.co.uk'
 ORIGIN_URL = sys.argv[1]
+
 
 class SampleCollector:
   def __init__(self):
@@ -35,18 +35,11 @@ class SampleCollector:
 
   def accept(self, visitor):
     visitor.visit(self)
-    # self.collection[visitor.sample_name()] = visitor.visit(self)
 
   def __repr__(self):
     return self.collection
 
 
-# class Sample():
-#   def sample_name(self):
-#     return self.__class__.__name__
-
-
-# class DeviceDistribution(Sample):
 class DeviceDistribution():
   def visit(self, samples):
     return crux.query_device_distribution(samples, ORIGIN_URL, GSA_CREDENTIALS)
@@ -62,7 +55,7 @@ if __name__ == "__main__":
   collector = SampleCollector()
 
   contexts = [
-    # DeviceDistribution(),
+    DeviceDistribution(),
     LighthouseScores()
   ]
 
