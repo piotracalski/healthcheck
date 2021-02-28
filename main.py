@@ -43,7 +43,7 @@ class DeviceDistribution():
 
 class LighthouseScores():
   def visit(self, samples):
-    return psi.get_lighthouse_scores(samples)
+    return psi.get_lighthouse_scores(samples, ORIGIN_URL)
 
 
 if __name__ == "__main__":
