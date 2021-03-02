@@ -1,0 +1,7 @@
+{
+  "accessibilityStandardTags": ["wcag2a", "wcag2aa", "wcag21aa"],
+  "geckodriverPath": "./drivers/geckodriver.exe",
+  "psiApiRequestInterval": 5,
+  "gsaCredentialsPath": "./credentials/gsa.json",
+  "psiApiKeyPath": "./credentials/psi.json"
+}

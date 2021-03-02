@@ -1,5 +1,9 @@
 # Website Healthcheck
 Description: TBD
+Current checks:
+- Lighthouse score for mobiles and desktop
+- Users' device distribution
+- Accessibility standards' violations
 
 ## Prerequisites
 

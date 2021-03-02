@@ -1,30 +1,21 @@
 from google.oauth2 import service_account
-from dotenv import load_dotenv
 import os
 import sys
-import json
 
+from modules import common
 from modules import crux
 from modules import psi
+from modules import accessibility
 
 
-def get_data_from_json(path):
-  with open(path) as f:
-    data = json.load(f)
-    return data
-
-
-load_dotenv()
-
-GSA_CREDENTIALS_PATH = os.getenv('GSA_CREDENTIALS_PATH', './credentials/gsa.json')
-PSI_API_KEY_PATH = os.getenv('PSI_API_KEY_PATH', './credentials/psi.json')
+CONFIG = common.get_data_from_json('./config.json')
 
 GSA_CREDENTIALS = service_account.Credentials.from_service_account_file(
-  GSA_CREDENTIALS_PATH,
+  CONFIG['gsaCredentialsPath'],
   scopes=["https://www.googleapis.com/auth/cloud-platform"]
 )
 
-PSI_API_KEY = get_data_from_json(PSI_API_KEY_PATH)['API_KEY']
+PSI_API_KEY = common.get_data_from_json(CONFIG['psiApiKeyPath'])['API_KEY']
 
 ORIGIN_URL = sys.argv[1]
 
@@ -47,7 +38,12 @@ class DeviceDistribution():
 
 class LighthouseScores():
   def visit(self, samples):
-    return psi.get_lighthouse_scores(samples, ORIGIN_URL, PSI_API_KEY)
+    return psi.get_lighthouse_scores(samples, ORIGIN_URL, PSI_API_KEY, CONFIG['psiApiRequestInterval'])
+
+
+class Accessibility():
+  def visit(self, samples):
+    return accessibility.get_violations_number(samples, ORIGIN_URL, CONFIG['accessibilityStandardTags'], CONFIG['geckodriverPath'])
 
 
 if __name__ == "__main__":
@@ -56,7 +52,8 @@ if __name__ == "__main__":
 
   contexts = [
     DeviceDistribution(),
-    LighthouseScores()
+    LighthouseScores(),
+    Accessibility()
   ]
 
   for context in contexts:
