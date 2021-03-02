@@ -18,6 +18,10 @@ For more info, please visit: https://cloud.google.com/docs/authentication/produc
 To avoid request rate limiting *key* parameter is added to each request. By default, key string value should be placed in: *root/credentials/psi.json* under *API_KEY* key.<br>
 For more info, please visit: https://developers.google.com/speed/docs/insights/v5/get-started?pli=1
 
+### Firefox Geckodriver
+In order to use accessibility module Firefox Geckodriver is needed. Its default location is: *root/drivers/geckodriver.exe*
+For more info, please visit: https://github.com/mozilla/geckodriver
+
 ## Executing the script
 ```
 pip install -r requirements.txt
