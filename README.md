@@ -1,5 +1,5 @@
 # Website Healthcheck
-Description: TBD
+Description: TBD<br>
 Current checks:
 - Lighthouse score for mobiles and desktop
 - Users' device distribution
