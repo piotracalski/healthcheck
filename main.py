@@ -1,5 +1,4 @@
 from google.oauth2 import service_account
-import os
 import sys
 
 from modules import common
