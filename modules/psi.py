@@ -27,7 +27,8 @@ def get_lighthouse_result(url, device, key):
   metrics = psi_data_json['originLoadingExperience']['metrics']
   for metric in metrics.keys():
     label = refine_labels(metric)
-    origin_cwv[label] = metrics[metric]['percentile']
+    value = metrics[metric]['percentile']
+    origin_cwv[label] = value if label != 'cumulativeLayoutShift' else int(value) / 100
 
   return {
     'score': int(float(score) * 100),
