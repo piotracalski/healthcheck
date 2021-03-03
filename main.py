@@ -37,12 +37,12 @@ class DeviceDistribution():
 
 class LighthouseScores():
   def visit(self, samples):
-    return psi.get_lighthouse_scores(samples, ORIGIN_URL, PSI_API_KEY, CONFIG['psiApiRequestInterval'])
+    return psi.get_lighthouse_results(samples, ORIGIN_URL, PSI_API_KEY, CONFIG['psiApiRequestInterval'])
 
 
 class Accessibility():
   def visit(self, samples):
-    return accessibility.get_violations_number(samples, ORIGIN_URL, CONFIG['accessibilityStandardTags'], CONFIG['geckodriverPath'])
+    return accessibility.get_violations_number(samples, ORIGIN_URL, CONFIG['accessibilityStandardTags'], CONFIG['webdriverPath'])
 
 
 if __name__ == "__main__":

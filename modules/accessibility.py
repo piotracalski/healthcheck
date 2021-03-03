@@ -7,6 +7,8 @@ def get_violations_number(collector, ORIGIN_URL, tags, driver_path):
   print('COLLECT: number of accessibility violations')
 
   driver = webdriver.Firefox(executable_path=driver_path)
+  # driver = webdriver.Chrome(executable_path=driver_path)
+  driver.set_window_size(1400, 900)
   driver.get(ORIGIN_URL)
   axe = Axe(driver)
   axe.inject()
@@ -18,6 +20,6 @@ def get_violations_number(collector, ORIGIN_URL, tags, driver_path):
   for violation in results['violations']:
     if any(tag in violation['tags'] for tag in tags):
       violations += 1
-      print(f'Violation: {violation["description"]}')
+      print(f'Violation: {violation["description"]}, Impact: {violation["impact"]}, Rules: {violation["tags"]}')
   
   collector.collection['accessibility_issues_number'] = violations
