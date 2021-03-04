@@ -6,9 +6,8 @@ Current checks:
 - Accessibility standards' violations
 
 ## Prerequisites
-
-### Python
-At the time of developing this script my version of Python was: 3.7.4
+### Docker
+Docker version 20.10.2, build 2291f61
 
 ### Google service account credentials
 To authenticate BigQuery request *Google service account credentials* are needed. Their default path is: *root/credentials/gsa.json*.<br>
@@ -22,10 +21,27 @@ For more info, please visit: https://developers.google.com/speed/docs/insights/v
 In order to use accessibility module Firefox Geckodriver is needed. Its default location is: *root/drivers/geckodriver.exe*
 For more info, please visit: https://github.com/mozilla/geckodriver
 
-## Executing the script
+### Configuration
+Currently all configuration variables are located in *root/config.json*.<br>
+Default configuration:
 ```
-pip install -r requirements.txt
-python .\main.py '{ORIGIN_URL}'
+{
+  "accessibilityStandardTags": ["wcag2a", "wcag2aa", "wcag21aa"],
+  "psiApiRequestInterval": 5,
+  "gsaCredentialsPath": "./credentials/gsa.json",
+  "psiApiKeyPath": "./credentials/psi.json"
+}
+```
+
+## Executing the script
+From the root folder:
+Build docker image from Dockerfile
+```
+docker build -t website-healthcheck .
+```
+Run image as a container, execute script and save results
+```
+docker run -t -e url="{TEST_URL}" website-healthcheck
 ```
 
 ## Output

@@ -1,5 +1,5 @@
 from google.oauth2 import service_account
-import sys
+import os
 
 from modules import common
 from modules import crux
@@ -16,7 +16,7 @@ GSA_CREDENTIALS = service_account.Credentials.from_service_account_file(
 
 PSI_API_KEY = common.get_data_from_json(CONFIG['psiApiKeyPath'])['API_KEY']
 
-ORIGIN_URL = sys.argv[1]
+ORIGIN_URL = os.environ['url']
 
 
 class SampleCollector:
@@ -47,7 +47,7 @@ class Accessibility():
 
 if __name__ == "__main__":
 
-  print(ORIGIN_URL)
+  print(f'EXECUTING WEBSITE HEALTHCHECK FOR: {ORIGIN_URL}')
 
   collector = SampleCollector()
 

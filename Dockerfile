@@ -28,6 +28,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-# ENV url
-
-CMD ["python", "-u", "./main.py", "https://www.ford.co.uk"]
+ENTRYPOINT ["python", "-u", "./main.py"]
