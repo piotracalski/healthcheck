@@ -3,6 +3,11 @@ from axe_selenium_python import Axe
 from pyvirtualdisplay import Display
 
 
+def find_rule(violated_rules, tags):
+  for rule in violated_rules:
+    if rule in tags: return rule
+
+
 def get_violations_number(collector, ORIGIN_URL, tags):
   display = Display()
   display.start()  
@@ -18,11 +23,22 @@ def get_violations_number(collector, ORIGIN_URL, tags):
   driver.close()
   display.stop()
 
-  violations = 0
+  count = 0
+  violations = list()
 
   for violation in results['violations']:
     if any(tag in violation['tags'] for tag in tags):
-      violations += 1
-      print(f'Violation: {violation["description"]}, Impact: {violation["impact"]}, Rules: {violation["tags"]}')
+
+      rule = find_rule(violation['tags'], tags)
+
+      count += 1
+      violations.append({
+        'description': violation['description'],
+        'impact': violation['impact'],
+        'rule': rule
+      })
   
-  collector.collection['accessibility_issues_number'] = violations
+  collector.collection['accessibility_issues'] = {
+    'violations_count': count,
+    'violations': violations
+  }

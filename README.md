@@ -49,7 +49,7 @@ TBD
 
 ## Todos
 - [x] prepare .dockerignore file
-- [ ] refine accessibility check response
+- [x] refine accessibility check response
 - [ ] implement proper error handling
 - [ ] save results to .json file
 - [ ] present results in an readable way
