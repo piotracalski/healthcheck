@@ -1,10 +1,10 @@
 # Website Healthcheck
-Description: TBD<br>
+Description: **Website Healthcheck** is an automated tool that gathers data about given URL.<br>
 Current checks:
-- Lighthouse score for mobiles and desktop
-- Core Web Vitals for mobiles and desktop
-- Users' device distribution
-- Accessibility standards' violations
+- Lighthouse score for mobiles and desktop - PageSpeedInsights API
+- Core Web Vitals for mobiles and desktop - PageSpeedInsights API (CrUX data)
+- Users' device distribution - BigQuery (CrUX data)
+- Accessibility standards' violations (AXE + Firefox)
 
 ## Prerequisites
 ### Docker
@@ -42,7 +42,7 @@ docker build -t website-healthcheck .
 ```
 Run image as a container, execute script and save results
 ```
-docker run -t -e url="{TEST_URL}" website-healthcheck
+docker run -t -e url="<TESTED_URL>" -v ${PWD}:/website-healthcheck website-healthcheck
 ```
 
 ## Output
