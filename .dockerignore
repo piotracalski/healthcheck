@@ -1,4 +1,6 @@
 README.md
+__pycache__/
 .gitignore
 output.json
 drivers/
+*.log
