@@ -42,10 +42,12 @@ class LighthouseScores():
 
 class Accessibility():
   def visit(self, samples):
-    return accessibility.get_violations_number(samples, ORIGIN_URL, CONFIG['accessibilityStandardTags'], CONFIG['webdriverPath'])
+    return accessibility.get_violations_number(samples, ORIGIN_URL, CONFIG['accessibilityStandardTags'])
 
 
 if __name__ == "__main__":
+
+  print(ORIGIN_URL)
 
   collector = SampleCollector()
 

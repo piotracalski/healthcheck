@@ -1,19 +1,22 @@
 from selenium import webdriver
 from axe_selenium_python import Axe
+from pyvirtualdisplay import Display
 
 
-def get_violations_number(collector, ORIGIN_URL, tags, driver_path):
+def get_violations_number(collector, ORIGIN_URL, tags):
+  display = Display()
+  display.start()  
 
   print('COLLECT: number of accessibility violations')
 
-  driver = webdriver.Firefox(executable_path=driver_path)
-  # driver = webdriver.Chrome(executable_path=driver_path)
+  driver = webdriver.Firefox()
   driver.set_window_size(1400, 900)
   driver.get(ORIGIN_URL)
   axe = Axe(driver)
   axe.inject()
   results = axe.run()
   driver.close()
+  display.stop()
 
   violations = 0
 
