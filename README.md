@@ -48,7 +48,7 @@ docker run -t -e url="{TEST_URL}" website-healthcheck
 TBD
 
 ## Todos
-- [ ] prepare .dockerignore file
+- [x] prepare .dockerignore file
 - [ ] refine accessibility check response
 - [ ] implement proper error handling
 - [ ] save results to .json file
