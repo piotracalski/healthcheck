@@ -60,4 +60,4 @@ if __name__ == "__main__":
   for context in contexts:
     collector.accept(context)
 
-  print(collector.collection)
+  common.save_data_to_json('output.json', collector.collection)
