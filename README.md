@@ -51,5 +51,5 @@ TBD
 - [x] prepare .dockerignore file
 - [x] refine accessibility check response
 - [ ] implement proper error handling
-- [ ] save results to .json file
+- [x] save results to .json file
 - [ ] present results in an readable way
