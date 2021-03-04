@@ -2,6 +2,7 @@
 Description: TBD<br>
 Current checks:
 - Lighthouse score for mobiles and desktop
+- Core Web Vitals for mobiles and desktop
 - Users' device distribution
 - Accessibility standards' violations
 
@@ -45,7 +46,7 @@ docker run -t -e url="{TEST_URL}" website-healthcheck
 ```
 
 ## Output
-TBD
+Currently results are saved to *root/output.json* file.
 
 ## Todos
 - [x] prepare .dockerignore file
