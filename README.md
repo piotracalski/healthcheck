@@ -50,3 +50,4 @@ Currently results are saved to *root/output.json* file.
 - [ ] implement proper error handling
 - [x] save results to .json file
 - [ ] present results in an readable way
+- [ ] set date (from) as a parameter in crux module
