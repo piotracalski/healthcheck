@@ -49,5 +49,9 @@ Currently results are saved to *root/output.json* file.
 - [x] refine accessibility check response
 - [ ] implement proper error handling
 - [x] save results to .json file
-- [ ] present results in an readable way
+- [ ] present results in an user-readable way
 - [ ] set date (from) as a parameter in crux module
+- [ ] parametrize browser choice
+
+## Post MVP inprovements:
+- [ ] parametrize test module usage (e.g. run only accessibility check; all by default)
