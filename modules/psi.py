@@ -52,4 +52,4 @@ def get_lighthouse_results(collector, url, PSI_API_KEY, interval):
       time.sleep(interval)
 
   
-  collector.collection['lighthouse_results'] = output
+  collector.collection['lighthouseResults'] = output

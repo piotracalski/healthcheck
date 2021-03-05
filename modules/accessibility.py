@@ -38,7 +38,7 @@ def get_violations_number(collector, ORIGIN_URL, tags):
         'rule': rule
       })
   
-  collector.collection['accessibility_issues'] = {
-    'violations_count': count,
+  collector.collection['accessibilityIssues'] = {
+    'violationsCount': count,
     'violations': violations
   }

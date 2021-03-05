@@ -24,4 +24,4 @@ def query_device_distribution(collector, ORIGIN_URL, GSA_CREDENTIALS):
   for row in query_results:
     output[row[0]] = int(row[1])
   
-  collector.collection['device_distribution'] = output
+  collector.collection['deviceDistribution'] = output
