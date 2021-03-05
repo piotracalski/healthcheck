@@ -45,13 +45,11 @@ docker run -t -e url="<TESTED_URL>" -v ${PWD}:/website-healthcheck website-healt
 Currently results are saved to *root/output.json* file.
 
 ## Todos
-- [x] prepare .dockerignore file
-- [x] refine accessibility check response
+- [ ] switch default browser do Chrome
 - [ ] implement proper error handling
-- [x] save results to .json file
+
+## Post MVP improvements:
+- [ ] parametrize test module usage (e.g. run only accessibility check; all by default)
+- [ ] parametrize browser choice
 - [ ] present results in an user-readable way
 - [ ] set date (from) as a parameter in crux module
-- [ ] parametrize browser choice
-
-## Post MVP inprovements:
-- [ ] parametrize test module usage (e.g. run only accessibility check; all by default)
