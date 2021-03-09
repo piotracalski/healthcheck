@@ -8,19 +8,29 @@ def find_rule(violated_rules, tags):
     if rule in tags: return rule
 
 
-def get_violations_number(collector, ORIGIN_URL, tags):
+def get_violations_number(collector, url, tags, browser):
+
   display = Display()
-  display.start()  
+  display.start()
+  user_browser = browser.lower().capitalize()
 
   print('COLLECT: number of accessibility violations')
+  print(f'Browser: {user_browser}')
 
-  # driver = webdriver.Firefox()
-  driver = webdriver.Chrome()
-  options = webdriver.ChromeOptions()
-  options.add_argument("--no-sandbox")
-  options.add_argument("--disable-dev-shm-usage")
+  if user_browser == 'Firefox':
+    driver = webdriver.Firefox()
+
+  elif user_browser == 'Chrome':
+    options = webdriver.ChromeOptions()
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    driver = webdriver.Chrome(executable_path=r'/usr/local/bin/chromedriver', options=options)
+
+  else:
+    print('Wrong browser. Currently supported browsers: Chrome, Firefox')
+
   driver.set_window_size(1400, 900)
-  driver.get(ORIGIN_URL)
+  driver.get(url)
   axe = Axe(driver)
   axe.inject()
   results = axe.run()
@@ -43,6 +53,7 @@ def get_violations_number(collector, ORIGIN_URL, tags):
       })
   
   collector.collection['accessibilityIssues'] = {
+    'browser': user_browser,
     'violationsCount': count,
     'violations': violations
   }
