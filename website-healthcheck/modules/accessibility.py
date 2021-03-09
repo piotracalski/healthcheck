@@ -14,7 +14,11 @@ def get_violations_number(collector, ORIGIN_URL, tags):
 
   print('COLLECT: number of accessibility violations')
 
-  driver = webdriver.Firefox()
+  # driver = webdriver.Firefox()
+  driver = webdriver.Chrome()
+  options = webdriver.ChromeOptions()
+  options.add_argument("--no-sandbox")
+  options.add_argument("--disable-dev-shm-usage")
   driver.set_window_size(1400, 900)
   driver.get(ORIGIN_URL)
   axe = Axe(driver)
