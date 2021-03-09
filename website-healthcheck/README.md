@@ -41,7 +41,7 @@ docker build -t website-healthcheck .
 Execute script in a container and save results.<br>
 *Note:* `[arg]` stands for optional environment variable
 ```
-docker run -t -e url="<TESTED_URL>" [-e browser="<browser>"] -v ${PWD}:/website-healthcheck website-healthcheck
+docker run -t -e url="<TESTED_URL>" [-e browser="<BROWSER>"] -v ${PWD}:/website-healthcheck website-healthcheck
 ```
 
 ## Output
