@@ -30,30 +30,43 @@ def get_violations_number(collector, url, tags, browser):
     print('Wrong browser. Currently supported browsers: Chrome, Firefox')
 
   driver.set_window_size(1400, 900)
-  driver.get(url)
-  axe = Axe(driver)
-  axe.inject()
-  results = axe.run()
-  driver.close()
-  display.stop()
 
-  count = 0
-  violations = list()
+  issues = dict()
 
-  for violation in results['violations']:
-    if any(tag in violation['tags'] for tag in tags):
+  try:
+    driver.get(url)
+    axe = Axe(driver)
+    axe.inject()
+    results = axe.run()
+    driver.close()
+    display.stop()
 
-      rule = find_rule(violation['tags'], tags)
+  except Exception as error:
+    issues = {
+      'error': str(error).replace('\n', '')
+    }
 
-      count += 1
-      violations.append({
-        'description': violation['description'],
-        'impact': violation['impact'],
-        'rule': rule
-      })
-  
-  collector.collection['accessibilityIssues'] = {
-    'browser': user_browser,
-    'violationsCount': count,
-    'violations': violations
-  }
+  else:
+    violations = list()
+    count = 0
+
+    for violation in results['violations']:
+      if any(tag in violation['tags'] for tag in tags):
+
+        rule = find_rule(violation['tags'], tags)
+
+        count += 1
+        violations.append({
+          'description': violation['description'],
+          'impact': violation['impact'],
+          'rule': rule
+        })
+    
+    issues = {
+      'browser': user_browser,
+      'violationsCount': count,
+      'violations': violations
+    }
+
+  finally:
+    collector.collection['accessibilityIssues'] = issues
