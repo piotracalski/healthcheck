@@ -18,6 +18,9 @@ GSA_CREDENTIALS = service_account.Credentials.from_service_account_file(
 PSI_API_KEY = common.get_data_from_json(CONFIG['psiApiKeyPath'])['API_KEY']
 
 ORIGIN_URL = os.environ['url']
+BROWSER = CONFIG['defaultBrowser']
+if 'browser' in os.environ:
+  BROWSER = os.environ['browser']
 
 
 class SampleCollector:
@@ -43,7 +46,7 @@ class LighthouseScores():
 
 class Accessibility():
   def visit(self, samples):
-    return accessibility.get_violations_number(samples, ORIGIN_URL, CONFIG['accessibilityStandardTags'])
+    return accessibility.get_violations_number(samples, ORIGIN_URL, CONFIG['accessibilityStandardTags'], BROWSER)
 
 
 if __name__ == "__main__":
